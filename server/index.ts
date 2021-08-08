@@ -1,9 +1,11 @@
+import { emptyDirSync } from "https://deno.land/std@0.103.0/fs/mod.ts";
 import { Application, send } from "https://deno.land/x/oak@v8.0.0/mod.ts";
 
 const { files } = await Deno.emit("client/index.tsx", {
   bundle: "module"
 });
 
+emptyDirSync("server/static/dist");
 Deno.writeTextFileSync("server/static/dist/app.js", files["deno:///bundle.js"]);
 
 const port = 8000;
